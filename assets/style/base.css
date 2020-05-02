@@ -1,0 +1,135 @@
+:root {
+  --color-base-1: #bab8c2; /* text */
+  --color-base-2: #c0c2c9; /* text */
+  --color-base-3: #71727a; /* text */
+  --color-base-4: #38393d; /* text */
+  --color-base-5: #323338; /* bg */
+  --color-base-6: #2e2e33; /* header bg */
+  --color-base-7: #232427; /* text */
+  --color-base-8: #111111; /* text */
+
+  --color-status-success: #3cb371;
+  --color-status-error: #ff6347;
+  --color-status-normal: #c0c2c9;
+
+  --color-point-1: #4925ff;
+  --color-point-2: #4322e6;
+  --color-point-3: #afb5ff;
+
+  --font-size-auth-title: 29px;
+  --font-size-auth-text: 22px;
+  --font-size-auth-btn: 20px;
+  --font-size-auth-form: 26px;
+  --font-size-auth-join: 18px;
+  --font-size-auth-invalid: 16px;
+  --font-size-auth-leave: 12px;
+
+  --font-size-base-0: 167px;
+  --font-size-base-1: 82px;
+  --font-size-base-2: 65px;
+  --font-size-base-3: 58px;
+  --font-size-base-4: 55px;
+  --font-size-base-5: 38px;
+  --font-size-base-6: 26px;
+  --font-size-base-7: 24px;
+  --font-size-base-8: 22px;
+  --font-size-base-9: 20px;
+  --font-size-base-10: 14px;
+}
+
+/* :lang(ko) {
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: -0.05em;
+}
+:lang(en) {
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: normal;
+}
+.font_noto {
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: -0.05em;
+}
+.foont_rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: normal;
+} */
+
+html {
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: -0.05em;
+  /* overflow-y: scroll; */
+}
+
+html,
+body,
+#__nuxt,
+#__layout {
+  height: 100%;
+}
+
+button {
+  background: inherit;
+  color:inherit;
+  border: 0;
+  outline: 0;
+}
+
+button:active,
+a:active {
+  opacity: 0.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+textarea, input, button{
+  font-family: inherit;
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 470px) {
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+@media (max-width: 469.98px) {
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+}
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
+}
+
+
+
+ /* IE11 */
+@media all and (-ms-high-contrast: none) {  
+  *::-ms-backdrop, .selector {}
+}
+/* IE edge 12+ */
+@supports (-ms-ime-align:auto) {
+  .selector {} 
+}
+/* IE 10+ */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .selector{}
+}
