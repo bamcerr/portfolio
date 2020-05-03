@@ -1,6 +1,10 @@
 require('dotenv').config()
 
 export default {
+  server: {
+    port: 3000,
+    host: 'localhost'
+  },
   analyze: false,
   mode: 'spa', // universal || spa
   buildDir: '.nuxt',
@@ -10,7 +14,11 @@ export default {
     title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1, viewport-fit=cover, minimal-ui'
+      },
       {
         hid: 'description',
         name: 'description',
@@ -57,10 +65,11 @@ export default {
 
   // Nuxt.js modules
   modules: [
-    // Doc: https://www.npmjs.com/package/nuxt-mq
-    'nuxt-mq',
     // Doc: https://github.com/potato4d/nuxt-client-init-module
     'nuxt-client-init-module',
+    // Doc: https://www.npmjs.com/package/nuxt-mq
+    'nuxt-mq',
+    // '@nuxtjs/pwa',
     // Doc : https://firebase.nuxtjs.org/
     '@nuxtjs/firebase',
     // Doc: https://axios.nuxtjs.org/usage
@@ -68,7 +77,6 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
-
   // firebase module configuration
   firebase: {
     config: {
@@ -86,14 +94,9 @@ export default {
       auth: {
         initialize: {
           onAuthStateChangedAction: 'auth/onAuthStateChanged'
-        },
-        ssr: false
+        }
       },
-      firestore: {
-        static: false,
-        preload: true,
-        enablePersistence: true
-      }
+      firestore: true
     }
   },
 
@@ -136,7 +139,7 @@ export default {
   },
 
   router: {
-    middleware: ['pageSpacer', 'checkBrowser']
+    middleware: ['pageSpacer']
   },
 
   generate: {

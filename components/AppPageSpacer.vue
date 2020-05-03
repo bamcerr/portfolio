@@ -12,9 +12,9 @@ export default {
   computed: {
     ...mapState(['pageSpacerName']),
     name() {
-      return this.pageSpacerName.replace(
-        /^./,
-        this.pageSpacerName[0].toUpperCase()
+      return (
+        this.pageSpacerName &&
+        this.pageSpacerName.replace(/^./, this.pageSpacerName[0].toUpperCase())
       )
     }
   }

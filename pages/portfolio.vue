@@ -2,7 +2,7 @@
   <div>
     <AppSectionTitle>PROJECT</AppSectionTitle>
 
-    <ProductFilter />
+    <WorkFilter />
 
     <nuxt-child :key="$route.fullPath" />
 
@@ -11,11 +11,12 @@
 </template>
 
 <script>
-import ProductFilter from '@/components/ProductFilter'
+import WorkFilter from '@/components/WorkFilter'
 
 export default {
+  layout: 'layoutDecktop',
   components: {
-    ProductFilter
+    WorkFilter
   }
 }
 </script>

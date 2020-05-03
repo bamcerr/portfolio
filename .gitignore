@@ -83,6 +83,7 @@ dist
 
 # Service worker
 sw.*
+firebase-auth-sw.js
 
 # macOS
 .DS_Store

@@ -1,19 +1,21 @@
 <template lang="html">
   <div>
-    <ProductList></ProductList>
+    <WorkList />
   </div>
 </template>
 
 <script>
-import ProductList from '@/components/ProductList'
+import WorkList from '@/components/WorkList'
 
 export default {
   transition: 'tab',
   components: {
-    ProductList
+    WorkList
   },
-  asyncData({ store, params }) {
-    store.commit('work/setActiveTags', { tagAtKey: params.tag })
+  fetch({ store, params }) {
+    store.commit('work/SET_KEYS_OF_ACTIVED_TAGS', {
+      keyOfActivatedTag: params.tag
+    })
   }
 }
 </script>

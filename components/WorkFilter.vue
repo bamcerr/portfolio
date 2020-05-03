@@ -36,12 +36,12 @@ export default {
   },
   computed: {
     ...mapState({
-      tags: (state) => state.work.tags,
-      activeTag: (state) => state.work.activeTagsAtKey[0]
+      tags: ({ work }) => work.tags,
+      keyofActivedTag: ({ work }) => work.keysOfActivatedTags[0]
     })
   },
   watch: {
-    activeTag: {
+    keyofActivedTag: {
       handler(newVal, oldVal) {
         this.$nextTick(() => {
           const newIndex = this.tags.findIndex((item) => item.key === newVal)

@@ -1,53 +1,49 @@
-// export const strict = false
-
 export const state = () => ({
   ALL: { key: '', name: 'all' },
-  items: [],
+  list: [],
   tags: [],
-  activeTagsAtKey: []
+  keysOfActivatedTags: [] // keys of activated tags
 })
 
 export const getters = {
-  getItemsfiltered({ items, activeTagsAtKey }) {
-    if (activeTagsAtKey[0] === '') return items
+  getfilteredList({ list, keysOfActivatedTags }) {
+    if (keysOfActivatedTags[0] === '') return list
 
-    return items.filter((item) => {
-      if (!item.tagsAtKey) {
+    return list.filter((item) => {
+      if (!item.keysOfTags) {
         return false
       }
-      return item.tagsAtKey.find((tagAtKey) => {
-        return tagAtKey === activeTagsAtKey[0]
+      return item.keysOfTags.find((key) => {
+        return key === keysOfActivatedTags[0]
       })
     })
-  },
-
-  getItems({ activeTagsAtKey, items, ALL }, { getItemsfiltered, getItemsAll }) {
-    const isAll = activeTagsAtKey.includes(ALL.key)
-    return isAll ? items : getItemsfiltered
   }
 }
 
 export const mutations = {
-  setActiveTags({ activeTagsAtKey, ALL }, { tagAtKey }) {
-    activeTagsAtKey.splice(0)
-    activeTagsAtKey.push(tagAtKey || ALL.key)
+  SET_KEYS_OF_ACTIVED_TAGS(
+    { keysOfActivatedTags, ALL },
+    { keyOfActivatedTag }
+  ) {
+    keysOfActivatedTags.splice(0)
+    keysOfActivatedTags.push(keyOfActivatedTag || ALL.key)
   },
 
-  patchTags({ tags, ALL }, payload) {
+  SET_TAGS({ tags, ALL }, payload) {
     tags.splice(0)
     tags.push(ALL)
     tags.push(...payload)
   },
 
-  patchItems({ items }, payload) {
-    items.splice(0)
-    items.push(...payload)
+  SET_LIST({ list }, payload) {
+    list.splice(0)
+    list.push(...payload)
   }
 }
 
 export const actions = {
-  fetchTags({ commit }) {
-    this.$fireStore
+  async fetchTags({ commit }) {
+    await this.$fireStore
       .collection('tags')
       .get()
       .then(function(querySnapshot) {
@@ -59,11 +55,11 @@ export const actions = {
         return tags
       })
       .then((tags) => {
-        commit('patchTags', tags)
+        commit('SET_TAGS', tags)
       })
   },
 
-  async fetchItems({ commit }) {
+  async fetchList({ commit }) {
     const resData = await this.$fireStore
       .collection('works')
       .get()
@@ -73,14 +69,14 @@ export const actions = {
           const data = doc.data()
           data.key = doc.id
           if (data.tags) {
-            data.tagsAtKey = data.tags.map((tag) => tag.id)
+            data.keysOfTags = data.tags.map((tag) => tag.id)
           }
           delete data.tags
           items.push(data)
         })
         return items
       })
-    commit('patchItems', resData)
+    commit('SET_LIST', resData)
     return resData
     // const categoryDocRef = firebase
     //   .firestore()
