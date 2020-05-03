@@ -2,7 +2,7 @@ export const state = () => ({
   ALL: { key: '', name: 'all' },
   list: [],
   tags: [],
-  keysOfActivatedTags: [] // keys of activated tags
+  keysOfActivatedTags: []
 })
 
 export const getters = {
@@ -43,7 +43,7 @@ export const mutations = {
 
 export const actions = {
   async fetchTags({ commit }) {
-    await this.$fireStore
+    const tags = await this.$fireStore
       .collection('tags')
       .get()
       .then(function(querySnapshot) {
@@ -54,13 +54,12 @@ export const actions = {
 
         return tags
       })
-      .then((tags) => {
-        commit('SET_TAGS', tags)
-      })
+
+    commit('SET_TAGS', tags)
   },
 
   async fetchList({ commit }) {
-    const resData = await this.$fireStore
+    const list = await this.$fireStore
       .collection('works')
       .get()
       .then((querySnapshot) => {
@@ -74,34 +73,10 @@ export const actions = {
           delete data.tags
           items.push(data)
         })
+
         return items
       })
-    commit('SET_LIST', resData)
-    return resData
-    // const categoryDocRef = firebase
-    //   .firestore()
-    //   .collection('categories')
-    //   .doc('5gF5FqRPvdroRF8isOwd')
-    // db.collection("rooms").where('floor','==',docRef)
-    // db.collection('products').get()
-    // .then(res => {
-    //   vm.mainListItems = [];
-    //   res.forEach(doc => {
-    //     let newItem = doc.data();
-    //     newItem.id = doc.id;
-    //     if (newItem.userRef) {
-    //       newItem.userRef.get()
-    //       .then(res => {
-    //         newItem.userData = res.data()
-    //         vm.mainListItems.push(newItem);
-    //       })
-    //       .catch(err => console.error(err));
-    //     } else {
-    //       vm.mainListItems.push(newItem);
-    //     }
-    //
-    //   });
-    // })
-    // .catch(err => { console.error(err) });
+
+    commit('SET_LIST', list)
   }
 }

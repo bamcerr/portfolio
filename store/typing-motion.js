@@ -10,6 +10,12 @@ function getItemIndexByKeyOrName(array, payload) {
   return array.findIndex((motion) => motion[l] === payload[r])
 }
 
+const FIELDS = [
+  { name: 'name', type: 'string' },
+  { name: 'resource', type: 'array' },
+  { name: 'shot', type: 'string' }
+]
+
 export const state = () => ({
   list: [
     // {
@@ -34,54 +40,72 @@ export const getters = {
 export const mutations = {
   ACTIVATE_MOTION({ list }, { key, name }) {
     const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i]._activated = true
+    if (!Object.prototype.hasOwnProperty.call(list[i], '_activated')) {
+      Vue.set(list[i], '_activated', true)
+    } else {
+      list[i]._activated = true
+    }
   },
 
   DEACTIVATE_MOTION({ list }, { key, name }) {
     const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i]._activated = false
+    if (!Object.prototype.hasOwnProperty.call(list[i], '_activated')) {
+      Vue.set(list[i], '_activated', false)
+    } else {
+      list[i]._activated = false
+    }
   },
 
   SET_MOTION_STATUS_READY({ list }, { key, name }) {
     const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i].status = 'ready'
+    if (!Object.prototype.hasOwnProperty.call(list[i], 'status')) {
+      Vue.set(list[i], 'status', 'ready')
+    } else {
+      list[i].status = 'ready'
+    }
+  },
+
+  SET_MOTION_STATUS_DOING({ list }, { key, name }) {
+    const i = getItemIndexByKeyOrName(list, { key, name })
+    if (!Object.prototype.hasOwnProperty.call(list[i], 'status')) {
+      Vue.set(list[i], 'status', 'doing')
+    } else {
+      list[i].status = 'doing'
+    }
   },
 
   SET_MOTION_STATUS_DONE({ list }, { key, name }) {
     const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i].status = 'done'
-  },
-
-  SET_MOTION_SHOT({ list }, { key, name, shot }) {
-    const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i].shot = shot
-  },
-
-  SET_MOTION_RESOURCE({ list }, { key, name, resource }) {
-    const i = getItemIndexByKeyOrName(list, { key, name })
-    list[i].resource = passParameterType('array')(resource) || []
-  },
-
-  SET_MOTION_NAME({ list }, { key, name }) {
-    const i = getItemIndexByKeyOrName(list, { key, name })
-
-    if (Object.prototype.hasdOwnProperty.call(list[i], 'name')) {
-      list[i].name = passParameterType('string')(name) || ''
+    if (!Object.prototype.hasOwnProperty.call(list[i], 'status')) {
+      Vue.set(list[i], 'status', 'done')
     } else {
-      throw new Error('add Motion first')
+      list[i].status = 'done'
     }
   },
 
-  ADD_MOTION({ list }, { name, resource }) {
-    const key = crypto.randomBytes(20).toString('hex')
-    list.push({ _key: key })
+  SET_MOTION_FIELD({ list }, { key, name, fields }) {
     const i = getItemIndexByKeyOrName(list, { key, name })
 
-    Vue.set(list[i], 'name', name)
-    Vue.set(list[i], 'resource', resource)
-    Vue.set(list[i], 'shot', '')
-    Vue.set(list[i], 'status', 'ready')
-    Vue.set(list[i], '_activated', true)
+    for (const [key, value] of Object.entries(fields)) {
+      const f = FIELDS.find((field) => field.name === key)
+      if (f !== -1) {
+        const passedValue = passParameterType(f.type)(value)
+        if (!Object.prototype.hasOwnProperty.call(list[i], key)) {
+          Vue.set(list[i], key, passedValue)
+        } else {
+          list[i][key] = passedValue
+        }
+      }
+    }
+  },
+
+  ADD_MOTION({ list }, { key }) {
+    list.push({ _key: key })
+  },
+
+  REMOVE_MOTION({ list }, { key }) {
+    const i = getItemIndexByKeyOrName(list, { key })
+    list.splice(i, 1)
   }
 }
 
@@ -90,7 +114,7 @@ export const actions = {
     commit('DEACTIVATE_MOTION', { name })
   },
 
-  run({ state, commit, getters }, name) {
+  run({ commit, getters }, name) {
     const motion = getters.getMotionByName(name)
     if (!motion._activated) return
 
@@ -102,7 +126,10 @@ export const actions = {
       const diff = timestamp - prev
 
       if (diff === 0 || diff >= 30) {
-        commit('SET_MOTION_SHOT', { name, shot: motion.resource[count] })
+        commit('SET_MOTION_FIELD', {
+          name,
+          fields: { shot: motion.resource[count] }
+        })
 
         prev = timestamp
 
@@ -120,11 +147,28 @@ export const actions = {
       requestAnimationFrame(step)
     }
 
-    commit('SET_MOTION_SHOT', { name, shot: '' })
+    commit('SET_MOTION_FIELD', {
+      name,
+      fields: { shot: '' }
+    })
+    commit('SET_MOTION_STATUS_DOING', { name })
     requestAnimationFrame(step)
   },
 
-  add({ commit }) {
-    commit('ADD_MOTION')
+  add({ commit }, { name, resource, shot }) {
+    const key = crypto.randomBytes(20).toString('hex')
+    try {
+      commit('ADD_MOTION', { key })
+      commit('SET_MOTION_FIELD', {
+        key,
+        fields: { name, resource, shot: shot || '' }
+      })
+      commit('SET_MOTION_STATUS_READY', { key })
+      commit('ACTIVATE_MOTION', { key })
+    } catch (error) {
+      // eslint-disable-next-line
+      console.error(error)
+      commit('REMOVE_MOTION', { key })
+    }
   }
 }

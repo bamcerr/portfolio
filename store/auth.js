@@ -2,8 +2,6 @@ export const state = () => ({
   authUser: null
 })
 
-export const getters = {}
-
 export const mutations = {
   RESET_AUTH_USER: (state) => {
     state.authUser = null

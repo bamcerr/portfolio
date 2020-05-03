@@ -3,7 +3,7 @@
     <div
       ref="hello"
       class="hello__inner"
-      :class="{ _status_done: motion.status === 'done' }"
+      :class="{ _status_done: motion && motion.status === 'done' }"
     ></div>
   </div>
 </template>
@@ -36,6 +36,7 @@ export default {
     authUser(val) {
       if (val) {
         this.runMotion('intro')
+        this.deactivateMotion('intro')
       }
     }
   },
