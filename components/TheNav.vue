@@ -1,23 +1,29 @@
 <template lang="html">
   <nav class="appNav">
-    <ul class="appNav__list" :class="$mq">
-      <li class="appNav__item" :class="$mq">
+    <ul class="appNav__list">
+      <li class="appNav__item">
         <nuxt-link to="/" class="appNav__link">
-          <AppTextHoverUnderline>
+          <AppTextHoverUnderline
+            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
+          >
             Hello
           </AppTextHoverUnderline>
         </nuxt-link>
       </li>
-      <li class="appNav__item" :class="$mq">
+      <li class="appNav__item">
         <nuxt-link to="/portfolio" class="appNav__link">
-          <AppTextHoverUnderline>
+          <AppTextHoverUnderline
+            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
+          >
             Portfolio
           </AppTextHoverUnderline>
         </nuxt-link>
       </li>
-      <li class="appNav__item" :class="$mq">
+      <li class="appNav__item">
         <nuxt-link to="/contact" class="appNav__link">
-          <AppTextHoverUnderline>
+          <AppTextHoverUnderline
+            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
+          >
             Contact
           </AppTextHoverUnderline>
         </nuxt-link>
@@ -46,7 +52,7 @@ export default {}
 
 .appNav__list {
   font-size: 26px;
-  margin-left: -10px;
+  margin-left: -8px;
   margin-top: -60px;
   font-weight: 300;
 }

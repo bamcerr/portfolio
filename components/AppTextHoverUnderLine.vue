@@ -1,5 +1,10 @@
 <template lang="html">
-  <span :style="cssProps" class="underline" :class="$mq" @click="triggerWave">
+  <span
+    :style="cssProps"
+    class="underline"
+    :class="{ __position_left: underlinePosition === 'left' }"
+    @click="triggerWave"
+  >
     <slot>linked text</slot>
   </span>
 </template>
@@ -14,6 +19,11 @@ export default {
       required: false,
       type: String,
       default: null
+    },
+    underlinePosition: {
+      required: false,
+      type: String,
+      default: 'bottom'
     }
   },
   computed: {
@@ -60,7 +70,7 @@ export default {
     transition: 1s;
   }
 
-  &._mq_xxl::after {
+  &.__position_left::after {
     width: 1px;
     height: 0;
 
@@ -77,7 +87,7 @@ export default {
     );
   }
 
-  &._mq_xxl:hover::after {
+  &.__position_left:hover::after {
     height: 200%;
   }
 }

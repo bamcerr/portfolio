@@ -1,26 +1,41 @@
+/* eslint-disable valid-typeof */
 export default function passParameterType(type) {
-  return (target) => {
-    try {
-      switch (type) {
-        case 'string':
-          if (typeof target !== 'string') {
-            throw new TypeError('Not string parameter')
-          } else {
-            return target
-          }
+  const _string_ = 'string'
+  const _boolean_ = 'boolean'
+  const _array_ = 'array'
 
-        case 'boolean':
-          if (typeof target !== 'boolean')
-            throw new Error('Not boolean parameter')
-          else return target
-
-        case 'array':
-          if (!Array.isArray(target)) throw new Error('Not array parameter')
-          else return target
+  const TYPE = {
+    [_string_]: {
+      condition: (target) => {
+        return typeof target === _string_
+      },
+      error: {
+        message: `Not ${_string_} parameter`
       }
-    } catch (error) {
-      // eslint-disable-next-line
-      console.warn(error)
+    },
+    [_boolean_]: {
+      condition: (target) => {
+        return typeof target === _boolean_
+      },
+      error: {
+        message: `Not ${_boolean_} parameter`
+      }
+    },
+    [_array_]: {
+      condition: (target) => {
+        return Array.isArray(target)
+      },
+      error: {
+        message: `Not ${_array_} parameter`
+      }
+    }
+  }
+
+  return (target) => {
+    if (TYPE[type].condition(target)) {
+      return target
+    } else {
+      throw new TypeError(`argument '${target}': ${TYPE[type].error.message}`)
     }
   }
 }

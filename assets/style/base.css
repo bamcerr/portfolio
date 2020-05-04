@@ -16,25 +16,25 @@
   --color-point-2: #4322e6;
   --color-point-3: #afb5ff;
 
-  --font-size-auth-title: 29px;
-  --font-size-auth-text: 22px;
-  --font-size-auth-btn: 20px;
-  --font-size-auth-form: 26px;
-  --font-size-auth-join: 18px;
-  --font-size-auth-invalid: 16px;
-  --font-size-auth-leave: 12px;
+  --font-size-auth-title: 1.8125rem;
+  --font-size-auth-text: 1.375rem;
+  --font-size-auth-btn: 1.25rem;
+  --font-size-auth-form: 1.625rem;
+  --font-size-auth-join: 1.125rem;
+  --font-size-auth-invalid: 1rem;
+  --font-size-auth-leave: 0.75rem;
 
-  --font-size-base-0: 167px;
-  --font-size-base-1: 82px;
-  --font-size-base-2: 65px;
-  --font-size-base-3: 58px;
-  --font-size-base-4: 55px;
-  --font-size-base-5: 38px;
-  --font-size-base-6: 26px;
-  --font-size-base-7: 24px;
-  --font-size-base-8: 22px;
-  --font-size-base-9: 20px;
-  --font-size-base-10: 14px;
+  --font-size-base-0: 10.4375rem;
+  --font-size-base-1: 5.125rem;
+  --font-size-base-2: 4.0625rem;
+  --font-size-base-3: 3.625rem;
+  --font-size-base-4: 3.4375rem;
+  --font-size-base-5: 2.375rem;
+  --font-size-base-6: 1.625rem;
+  --font-size-base-7: 1.5rem;
+  --font-size-base-8: 1.375rem;
+  --font-size-base-9: 1.25rem;
+  --font-size-base-10: 0.875rem;
 }
 
 /* :lang(ko) {
@@ -57,6 +57,7 @@
 html {
   font-family: 'Noto Sans KR', sans-serif;
   letter-spacing: -0.05em;
+  font-size: 16px;
   /* overflow-y: scroll; */
 }
 
@@ -66,10 +67,13 @@ body,
 #__layout {
   height: 100%;
 }
-
+input,
+textarea {
+  border-radius: 0;
+}
 button {
   background: inherit;
-  color:inherit;
+  color: inherit;
   border: 0;
   outline: 0;
 }
@@ -84,7 +88,9 @@ a {
   text-decoration: none;
 }
 
-textarea, input, button{
+textarea,
+input,
+button {
   font-family: inherit;
 }
 
@@ -104,32 +110,34 @@ textarea, input, button{
 @media (min-width: 1200px) {
 }
 
-@media (max-width: 469.98px) {
-}
-
-/* Small devices (landscape phones, less than 768px) */
-@media (max-width: 767.98px) {
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1199.98px) {
 }
 
 /* Medium devices (tablets, less than 992px) */
 @media (max-width: 991.98px) {
 }
 
-/* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
 }
 
+@media (max-width: 469.98px) {
+}
 
-
- /* IE11 */
-@media all and (-ms-high-contrast: none) {  
-  *::-ms-backdrop, .selector {}
+/* IE11 */
+@media all and (-ms-high-contrast: none) {
+  *::-ms-backdrop,
+  .selector {
+  }
 }
 /* IE edge 12+ */
-@supports (-ms-ime-align:auto) {
-  .selector {} 
+@supports (-ms-ime-align: auto) {
+  .selector {
+  }
 }
 /* IE 10+ */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .selector{}
+  .selector {
+  }
 }

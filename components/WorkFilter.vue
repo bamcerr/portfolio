@@ -28,20 +28,23 @@ import clickWaveMotion from '@/mixins/clickWaveMotion'
 
 export default {
   mixins: [clickWaveMotion],
+
   data() {
     return {
       observer: null,
       target: null
     }
   },
+
   computed: {
     ...mapState({
-      tags: (state) => state.work.tags,
-      activeTag: (state) => state.work.activeTagsAtKey[0]
+      tags: ({ work }) => work.tags,
+      keyofActivedTag: ({ work }) => work.keysOfActivatedTags[0]
     })
   },
+
   watch: {
-    activeTag: {
+    keyofActivedTag: {
       handler(newVal, oldVal) {
         this.$nextTick(() => {
           const newIndex = this.tags.findIndex((item) => item.key === newVal)
@@ -70,17 +73,22 @@ export default {
       this.$refs.tabIndicator.style.left = entries[0].target.offsetLeft + 'px'
     })
 
-    window.onresize = () => {
-      this.$refs.tabIndicator.style.left = this.target.offsetLeft + 'px'
-    }
+    window.addEventListener('resize', this.setPositonTabIndicator)
 
     this.$refs.tabIndicator.addEventListener('transitionend', (e) => {
       e.target.classList.remove('_transition_do')
     })
   },
+
   beforeDestroy() {
     this.observer.disconnect()
-    window.onresize = null
+    window.removeEventListener('resize', this.setPositonTabIndicator)
+  },
+
+  methods: {
+    setPositonTabIndicator() {
+      this.$refs.tabIndicator.style.left = this.target.offsetLeft + 'px'
+    }
   }
 }
 </script>

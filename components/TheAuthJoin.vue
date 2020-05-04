@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="theAuthJoin">
     <div class="theAuthJoin__inner">
-      <div class="theAuthJoin__notice">
+      <div v-if="true" class="theAuthJoin__notice">
         <h3 class="theAuthJoin__noticeTitle">이 곳을 둘러보시려면</h3>
         <p class="theAuthJoin__noticeText">
           '익명으로 이용하기'를 눌러 주세요.
@@ -265,9 +265,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-br {
-  font-size: 0;
-}
 .theAuthJoin {
   box-sizing: border-box;
 }
