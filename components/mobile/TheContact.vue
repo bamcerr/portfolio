@@ -5,6 +5,7 @@ export default {
   extends: TheContact
 }
 </script>
+
 <style lang="postcss" scoped>
 .contactForm {
   padding-bottom: 4.17rem;

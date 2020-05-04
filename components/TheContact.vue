@@ -13,7 +13,7 @@
           $v.email.$touch()
         "
         @blur="email = $event.target.value.trim()"
-        @click="triggerWave"
+        @click="runWaveMotion"
       />
       <label for="email" class="contactForm__label">Email</label>
       <span
@@ -31,7 +31,7 @@
         :value="message"
         class="contactForm__input _type_textarea"
         placeholder="Enter some text"
-        @click="triggerWave"
+        @click="runWaveMotion"
         @input="
           message = $event.target.value
           $v.message.$touch()

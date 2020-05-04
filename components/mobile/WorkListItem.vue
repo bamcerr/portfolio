@@ -1,5 +1,4 @@
 <script>
-import { throttle } from 'throttle-debounce'
 // prettier-ignore
 // eslint-disable-next-line
 import { ScrollScene } from 'scrollscene'

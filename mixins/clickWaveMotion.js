@@ -21,45 +21,77 @@ export default {
   },
 
   methods: {
-    progressWave($event) {
-      document.body.appendChild(this.waveElement)
+    progress({ parent }) {
+      parent.appendChild(this.waveElement)
+      if (!this.waveRequestId) {
+        new Promise((resolve, reject) => {
+          this.waveFrame(resolve)
+        }).then(() => {
+          parent.removeChild(this.waveElement)
+        })
+      }
+    },
 
+    waveFrame(done) {
       const k = ++this.f / this.NF
       this.waveStyle.setProperty(
         'background-image',
         `radial-gradient(circle at
-        ${this.wavePoint.x}px
-        ${this.wavePoint.y}px,
-        transparent 3%,
-        rgba(255, 255, 255, 0.2) ${+(k * 100).toFixed(2)}%,
-        transparent ${+(k * 120).toFixed(2)}%)`
+          ${this.wavePoint.x}px
+          ${this.wavePoint.y}px,
+          transparent 3%,
+          rgba(255, 255, 255, 0.2) ${+(k * 100).toFixed(2)}%,
+          transparent ${+(k * 120).toFixed(2)}%)`
       )
-
       if (!(this.f % this.NF)) {
-        document.body.removeChild(this.waveElement)
         cancelAnimationFrame(this.waveRequestId)
         this.f = 0
         this.waveRequestId = null
+        done()
         return
       }
 
-      this.waveRequestId = requestAnimationFrame(this.progressWave)
+      this.waveRequestId = requestAnimationFrame(() => {
+        this.waveFrame(done)
+      })
     },
 
-    triggerWave($event) {
+    runWaveMotion($event) {
       const el = $event.target
-      const absoluteTop = window.pageYOffset + el.getBoundingClientRect().top
-      const absoluteLeft = window.pageXOffset + el.getBoundingClientRect().left
+      const rect = el.getBoundingClientRect()
+      const absoluteTop = window.pageYOffset + rect.top
+      const absoluteLeft = window.pageXOffset + rect.left
+      const absoluteBottom =
+        document.body.scrollHeight - (absoluteTop + el.offsetHeight)
+      const absoluteRight =
+        document.body.scrollWidth - (absoluteTop + el.offsetWidth)
 
       this.waveStyle.setProperty('width', `${el.offsetWidth}px`)
       this.waveStyle.setProperty('height', `${el.offsetHeight}px`)
       this.waveStyle.setProperty('left', `${absoluteLeft}px`)
       this.waveStyle.setProperty('top', `${absoluteTop}px`)
+      this.waveStyle.setProperty('bottom', `${absoluteBottom}px`)
+      this.waveStyle.setProperty('right', `${absoluteRight}px`)
+      this.waveStyle.setProperty('margin', 'initial')
 
       this.wavePoint.x = $event.offsetX
       this.wavePoint.y = $event.offsetY
 
-      if (!this.waveRequestId) this.progressWave()
+      this.progress({ parent: document.body })
+    },
+
+    runWaveMotionInner($event) {
+      const el = $event.target
+      this.waveStyle.setProperty('left', '0')
+      this.waveStyle.setProperty('right', '0')
+      this.waveStyle.setProperty('top', '0')
+      this.waveStyle.setProperty('bottom', '0')
+      this.waveStyle.setProperty('margin', 'auto')
+
+      this.wavePoint.x = $event.offsetX
+      this.wavePoint.y = $event.offsetY
+
+      this.progress({ parent: el })
     }
   }
 }
