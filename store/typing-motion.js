@@ -114,6 +114,10 @@ export const actions = {
     commit('DEACTIVATE_MOTION', { name })
   },
 
+  activate({ commit }, name) {
+    commit('ACTIVATE_MOTION', { name })
+  },
+
   run({ commit, getters }, name) {
     const motion = getters.getMotionByName(name)
     if (!motion._activated) return
@@ -165,6 +169,8 @@ export const actions = {
       })
       commit('SET_MOTION_STATUS_READY', { key })
       commit('ACTIVATE_MOTION', { key })
+
+      return key
     } catch (error) {
       // eslint-disable-next-line
       console.error(error)

@@ -1,7 +1,8 @@
 <template>
   <div class="">
-    <TheHello />
-
+    <keep-alive>
+      <TheHello />
+    </keep-alive>
     <AppPageSpacer />
   </div>
 </template>

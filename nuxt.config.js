@@ -35,7 +35,7 @@ export default {
   },
 
   // Customize the progress-bar color
-  loading: { color: '#fff' },
+  loading: false,
 
   pageTransition: {},
 
@@ -115,6 +115,9 @@ export default {
 
   // Build configuration
   build: {
+    splitChunks: {
+      layouts: true
+    },
     babel: {
       presets: [
         [

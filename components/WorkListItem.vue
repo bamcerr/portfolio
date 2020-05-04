@@ -99,12 +99,11 @@ export default {
       scene: null
     }
   },
+
   mounted() {
     this.bindScrollMotion()
   },
-  beforeDestroy() {
-    // this.scene.destroy()
-  },
+
   methods: {
     bindScrollMotion() {
       const item = this.$refs.item

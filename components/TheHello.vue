@@ -9,17 +9,10 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
-import typingMotionData from '@/assets/data/typingMotion.js'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'Index',
-
   computed: {
-    ...mapState({
-      authUser: ({ auth }) => auth.authUser
-    }),
-
     ...mapGetters({
       getMotion: 'typing-motion/getMotionByName'
     }),
@@ -30,25 +23,22 @@ export default {
   },
 
   watch: {
-    'motion.shot'(val) {
-      this.$refs.hello.innerHTML = `${val}<span class="hello__cursor">|</span>`
-    },
-    authUser(val) {
-      if (val) {
-        this.runMotion('intro')
-        this.deactivateMotion('intro')
-      }
+    'motion.shot': {
+      handler(val) {
+        this.$nextTick(() => {
+          this.$refs.hello.innerHTML = `${val}<span class="hello__cursor">|</span>`
+        })
+      },
+      immediate: true
     }
   },
 
-  created() {
-    this.addMotion({ name: 'intro', resource: typingMotionData })
-  },
-
   mounted() {
-    if (this.authUser) {
-      this.runMotion('intro')
-      this.deactivateMotion('intro')
+    if (this.motion.status === 'ready') {
+      setTimeout(() => {
+        this.runMotion('intro')
+        this.deactivateMotion('intro')
+      }, 1000)
     }
   },
 

@@ -81,6 +81,6 @@ export default {
   *::-ms-backdrop,
   .theAuthLeave__inner {
     bottom: 10px;
-  } /* IE11 */
+  }
 }
 </style>

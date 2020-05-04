@@ -1,23 +1,27 @@
 <script>
+import { throttle } from 'throttle-debounce'
 // prettier-ignore
 // eslint-disable-next-line
-import { ScrollScene, ScrollObserver, ScrollMagic, addIndicators } from 'scrollscene'
+import { ScrollScene } from 'scrollscene'
 import { gsap } from 'gsap'
 /* eslint-disable */
 import WorkListItem from '@/components/WorkListItem'
 
 export default {
   extends: WorkListItem,
+
   mounted() {    
     window.addEventListener('resize', this.initScrollMotion)
   },
+
   methods: { 
-    initScrollMotion(){
+    initScrollMotion(){      
       const item = this.$refs.item
       this.scene.Scene.removePin(true)
       this.scene.Scene.setPin(item)
       this.scene.Scene.offset(item.clientHeight / 2)
-    },   
+    },
+
     bindScrollMotion() {
       const item = this.$refs.item
       const img = this.$refs.img
@@ -52,6 +56,7 @@ export default {
       })
     }
   },
+  
   beforeDestroy() {
     window.removeEventListener('resize', this.initScrollMotion)
   }

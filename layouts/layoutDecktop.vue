@@ -5,7 +5,9 @@
         <keep-alive>
           <TheNav />
         </keep-alive>
-        <TheAuth />
+        <keep-alive>
+          <TheNavToMobile />
+        </keep-alive>
       </div>
     </header>
 
@@ -19,12 +21,12 @@
 
 <script>
 import TheNav from '@/components/TheNav'
-import TheAuth from '@/components/TheAuth'
+import TheNavToMobile from '@/components/TheNavToMobile'
 
 export default {
   components: {
     TheNav,
-    TheAuth
+    TheNavToMobile
   }
 }
 </script>

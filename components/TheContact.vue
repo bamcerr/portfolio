@@ -49,8 +49,7 @@
     </div>
 
     <p class="contactForm__text">
-      보내신 메시지는 데이터베이스에 저장됩니다.<br />
-      필요한 경우에만 보내주세요. :)
+      보내신 메시지는 데이터베이스에 저장됩니다.
     </p>
 
     <div class="contactForm__submitWrap">
@@ -63,7 +62,6 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators'
-import { mapState } from 'vuex'
 import AppButtonPoint from '@/components/AppButtonPoint'
 import clickWaveMotion from '@/mixins/clickWaveMotion'
 
@@ -92,12 +90,6 @@ export default {
     }
   },
 
-  computed: {
-    ...mapState({
-      authUser: ({ auth }) => auth.authUser
-    })
-  },
-
   methods: {
     sendMessage() {
       this.$v.$touch()
@@ -106,7 +98,6 @@ export default {
       this.$fireStore
         .collection('contact')
         .add({
-          uid: this.authUser.uid,
           date: this.$moment().format('YYYY-MM-DD hh:mm:ss'),
           email: this.email,
           message: this.message

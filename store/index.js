@@ -1,5 +1,6 @@
 import MobileDetect from 'mobile-detect'
 import checkIEVersion from '@/utils/checkIEVersion'
+import typingMotionData from '@/assets/data/typingMotion.js'
 
 export const state = () => ({
   pageSpacerName: null,
@@ -40,6 +41,8 @@ export const actions = {
         redirect(200, '/m/')
       })
     }
+
+    dispatch('typing-motion/add', { name: 'intro', resource: typingMotionData })
 
     await dispatch('work/fetchTags')
     await dispatch('work/fetchList')
