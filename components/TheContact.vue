@@ -4,7 +4,7 @@
       <input
         id="email"
         ref="email"
-        type="text"
+        type="email"
         :value="email"
         placeholder="Enter your email"
         class="contactForm__input _type_email _name_email"

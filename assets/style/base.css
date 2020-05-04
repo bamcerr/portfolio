@@ -57,7 +57,7 @@
 html {
   font-family: 'Noto Sans KR', sans-serif;
   letter-spacing: -0.05em;
-  font-size:16px;
+  font-size: 16px;
   /* overflow-y: scroll; */
 }
 
@@ -67,10 +67,13 @@ body,
 #__layout {
   height: 100%;
 }
-
+input,
+textarea {
+  border-radius: 0;
+}
 button {
   background: inherit;
-  color:inherit;
+  color: inherit;
   border: 0;
   outline: 0;
 }
@@ -85,7 +88,9 @@ a {
   text-decoration: none;
 }
 
-textarea, input, button{
+textarea,
+input,
+button {
   font-family: inherit;
 }
 
@@ -106,7 +111,7 @@ textarea, input, button{
 }
 
 /* Large devices (desktops, less than 1200px) */
-@media (max-width: 1199.98px) {  
+@media (max-width: 1199.98px) {
 }
 
 /* Medium devices (tablets, less than 992px) */
@@ -120,16 +125,19 @@ textarea, input, button{
 @media (max-width: 469.98px) {
 }
 
-
- /* IE11 */
-@media all and (-ms-high-contrast: none) {  
-  *::-ms-backdrop, .selector {}
+/* IE11 */
+@media all and (-ms-high-contrast: none) {
+  *::-ms-backdrop,
+  .selector {
+  }
 }
 /* IE edge 12+ */
-@supports (-ms-ime-align:auto) {
-  .selector {} 
+@supports (-ms-ime-align: auto) {
+  .selector {
+  }
 }
 /* IE 10+ */
 @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-  .selector{}
+  .selector {
+  }
 }
