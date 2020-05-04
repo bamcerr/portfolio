@@ -5,20 +5,21 @@ export default {
   extends: TheContact
 }
 </script>
+
 <style lang="postcss" scoped>
 .contactForm {
-  padding-bottom: 10rem;
-  width: 58rem;
+  padding-bottom: 4.17rem;
+  width: 24.17rem;
   margin: auto;
 }
 
 .contactForm__item {
   position: relative;
   width: 100%;
-  margin: 5rem auto 0;
+  margin: 2.08rem auto 0;
 
   &._child_first {
-    margin-top: 4.5rem;
+    margin-top: 1.88rem;
   }
 }
 
@@ -26,18 +27,18 @@ export default {
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  padding: 2rem 1.6rem;
+  padding: 0.83rem 0.67rem;
   border: 0;
   color: var(--color-base-8, #111111);
   background-color: var(--color-base-2, #c0c2c9);
-  font-size: var(--font-size-base-5, 38px);
+  font-size: var(--font-size-base-5, 1.58rem);
 
   &._type_email {
-    height: 6.2rem;
+    height: 2.58rem;
   }
 
   &._type_textarea {
-    height: 18rem;
+    height: 7.5rem;
     line-height: 1.2;
   }
 
@@ -46,15 +47,15 @@ export default {
   }
 
   &:placeholder-shown ~ .contactForm__label {
-    top: 2rem;
-    left: 1.6rem;
-    font-size: var(--font-size-base-5, 38px);
+    top: 0.5rem;
+    left: 0.67rem;
+    font-size: var(--font-size-base-5, 1.58rem);
   }
 
   &:focus ~ .contactForm__label {
-    top: -2.4rem;
-    left: -0.2rem;
-    font-size: var(--font-size-base-7, 24px);
+    top: -1.25rem;
+    left: -0.08rem;
+    font-size: var(--font-size-base-7, 1rem);
   }
 
   &::-ms-input-placeholder {
@@ -67,10 +68,10 @@ export default {
 .contactForm__label {
   display: block;
   position: absolute;
-  top: -2.4rem;
-  left: -0.2rem;
+  top: -1.25rem;
+  left: -0.08rem;
   color: var(--color-base-3, #71727a);
-  font-size: var(--font-size-base-7, 24px);
+  font-size: var(--font-size-base-7, 1rem);
   line-height: 1;
   font-weight: 300;
   transition: top 0.2s, font-size 0.2s, left 0.2s;
@@ -78,11 +79,11 @@ export default {
 
 .contactForm__validator {
   display: block;
-  width: 0.4rem;
+  width: 0.17rem;
   height: 100%;
   position: absolute;
   top: 0;
-  left: -0.4rem;
+  left: -0.17rem;
 
   &._status_normal {
     background-color: var(--color-status-normal, #c0c2c9);
@@ -99,22 +100,22 @@ export default {
 
 .contactForm__text {
   width: 100%;
-  margin: 1.2rem auto 0;
+  margin: 0.5rem auto 0;
   color: var(--color-base-7, #232427);
-  font-size: var(--font-size-base-7, 24px);
+  font-size: var(--font-size-base-7, 1rem);
   line-height: 1.3;
 }
 
 .contactForm__submitWrap {
   width: 100%;
   text-align: right;
-  margin: 5rem auto 7.8rem auto;
+  margin: 2.08rem auto 3.25rem auto;
 }
 
 .contactForm__submit {
   display: inline-block;
-  width: 21rem;
-  height: 4.5rem;
-  font-size: var(--font-size-base-8, 22px);
+  width: 8.75rem;
+  height: 1.88rem;
+  font-size: var(--font-size-base-7, 1.83rem);
 }
 </style>

@@ -41,7 +41,7 @@ export default {}
   margin: 0 6px;
   padding-bottom: 2px;
   font-weight: 300;
-  font-size: var(--font-size-auth-leave, 12px);
+  font-size: var(--font-size-base-11, 12px);
   background-color: transparent;
 }
 

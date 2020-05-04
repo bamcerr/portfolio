@@ -38,7 +38,7 @@
             placeholder="abc@abc.com"
             class="theAuthJoin__input"
             @input="resetResponseInvalid"
-            @click="triggerWave"
+            @click="runWaveMotion"
           />
           <div v-if="$v.email.$error" class="theAuthJoin__invalids">
             <span
@@ -65,7 +65,7 @@
             type="password"
             placeholder="p•a•s•s•w•d"
             @input="resetResponseInvalid"
-            @click="triggerWave"
+            @click="runWaveMotion"
           />
 
           <div v-if="$v.password.$error" class="theAuthJoin__invalids">

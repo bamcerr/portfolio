@@ -4,7 +4,7 @@
     class="button button__point"
     v-bind="$attrs"
     v-on="$listeners"
-    @click="triggerWave"
+    @click="runWaveMotionInner"
   >
     <slot></slot>
   </button>

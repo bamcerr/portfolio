@@ -77,6 +77,15 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
+  // mq module configuration
+  mq: {
+    defaultBreakPoint: 'default',
+    breakpoints: {
+      __mq_xxl: 1660,
+      __mq_xxxl: Infinity
+    }
+  },
+
   // firebase module configuration
   firebase: {
     config: {
@@ -103,15 +112,6 @@ export default {
   // Axios module configuration
   // See https://axios.nuxtjs.org/options
   axios: {},
-
-  // mq module configuration
-  mq: {
-    defaultBreakPoint: 'default',
-    breakpoints: {
-      _mq_xxl: 1660,
-      _mq_xxxl: Infinity
-    }
-  },
 
   // Build configuration
   build: {

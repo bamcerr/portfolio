@@ -1,30 +1,13 @@
 <template lang="html">
   <nav class="appNav">
     <ul class="appNav__list">
-      <li class="appNav__item">
-        <nuxt-link to="/" class="appNav__link">
+      <li v-for="route in routes" :key="route.url" class="appNav__item">
+        <nuxt-link :to="route.url" class="appNav__link">
           <AppTextHoverUnderline
-            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
+            :underline-position="$mq === '__mq_xxl' ? 'left' : 'bottom'"
+            @click="runWaveMotion"
           >
-            Hello
-          </AppTextHoverUnderline>
-        </nuxt-link>
-      </li>
-      <li class="appNav__item">
-        <nuxt-link to="/portfolio" class="appNav__link">
-          <AppTextHoverUnderline
-            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
-          >
-            Portfolio
-          </AppTextHoverUnderline>
-        </nuxt-link>
-      </li>
-      <li class="appNav__item">
-        <nuxt-link to="/contact" class="appNav__link">
-          <AppTextHoverUnderline
-            :underline-position="$mq === '_mq_xxl' ? 'left' : 'bottom'"
-          >
-            Contact
+            {{ capitalizeFirstLetter(route.name) }}
           </AppTextHoverUnderline>
         </nuxt-link>
       </li>
@@ -33,7 +16,26 @@
 </template>
 
 <script>
-export default {}
+import clickWaveMotion from '@/mixins/clickWaveMotion'
+import capitalizeFirstLetter from '@/utils/capitalizeFirstLetter'
+
+export default {
+  mixins: [clickWaveMotion],
+
+  data() {
+    return {
+      routes: [
+        { url: '/', name: 'hello' },
+        { url: '/portfolio', name: 'portfolio' },
+        { url: '/contact', name: 'contact' }
+      ]
+    }
+  },
+
+  methods: {
+    capitalizeFirstLetter
+  }
+}
 </script>
 
 <style lang="postcss" scoped>

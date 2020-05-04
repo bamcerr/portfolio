@@ -11,9 +11,9 @@
           class="filter__link"
           :to="`/portfolio/${tag.key}`"
           replace
-          @click.native="triggerWave"
+          @click.native="runWaveMotion"
         >
-          {{ tag.name.replace(/^./, tag.name[0].toUpperCase()) + '.' }}
+          {{ capitalizeFirstLetter(tag.name) + '.' }}
         </nuxt-link>
       </li>
       <li ref="tabIndicator" class="filter__indicator"></li>
@@ -25,6 +25,7 @@
 import { ResizeObserver } from '@juggle/resize-observer'
 import { mapState } from 'vuex'
 import clickWaveMotion from '@/mixins/clickWaveMotion'
+import capitalizeFirstLetter from '@/utils/capitalizeFirstLetter'
 
 export default {
   mixins: [clickWaveMotion],
@@ -88,7 +89,9 @@ export default {
   methods: {
     setPositonTabIndicator() {
       this.$refs.tabIndicator.style.left = this.target.offsetLeft + 'px'
-    }
+    },
+
+    capitalizeFirstLetter
   }
 }
 </script>

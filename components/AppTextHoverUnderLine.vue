@@ -3,17 +3,15 @@
     :style="cssProps"
     class="underline"
     :class="{ __position_left: underlinePosition === 'left' }"
-    @click="triggerWave"
+    v-bind="$attrs"
+    v-on="$listeners"
   >
     <slot>linked text</slot>
   </span>
 </template>
 
 <script>
-import clickWaveMotion from '@/mixins/clickWaveMotion'
-
 export default {
-  mixins: [clickWaveMotion],
   props: {
     underlineColor: {
       required: false,

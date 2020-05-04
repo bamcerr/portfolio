@@ -30,5 +30,6 @@ export default {}
   margin: auto;
   color: var(--color-base-3, #71727a);
   text-align: center;
+  font-size: var(--font-size-base-11, 12px);
 }
 </style>

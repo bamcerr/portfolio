@@ -13,7 +13,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import TheHello from '@/components/TheHello'
+import TheHello from '@/components/mobile/TheHello'
 import WorkList from '@/components/mobile/WorkList'
 import TheContact from '@/components/mobile/TheContact'
 import AppSectionTitle from '@/components/mobile/AppSectionTitle'
