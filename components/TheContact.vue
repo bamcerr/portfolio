@@ -48,6 +48,14 @@
       ></span>
     </div>
 
+    <input
+      id="honeypot"
+      v-model="honeypot"
+      type="text"
+      name="honeypot"
+      value=""
+    />
+
     <p class="contactForm__text">
       보내신 메시지는 데이터베이스에 저장됩니다.
     </p>
@@ -75,7 +83,8 @@ export default {
   data() {
     return {
       email: null,
-      message: null
+      message: null,
+      honeypot: null
     }
   },
 
@@ -94,38 +103,69 @@ export default {
     sendMessage() {
       this.$v.$touch()
       if (this.$v.$invalid) return
+      if (this.honeypot) return
 
-      this.$fireStore
-        .collection('contact')
-        .add({
-          date: this.$moment().format('YYYY-MM-DD hh:mm:ss'),
-          email: this.email,
-          message: this.message
-        })
-        .then(() => {
-          this.$notify({
-            group: 'contact',
-            title: '',
-            text: '메시지가 성공적으로 등록되었습니다!',
-            type: 'success',
-            closeOnClick: true
-          })
-        })
-        .catch(() => {
-          this.$notify({
-            group: 'contact',
-            title: '',
-            text: '메시지 등록을 실패하였습니다!',
-            type: 'error',
-            closeOnClick: true
-          })
-        })
+      const formData = {}
+      const fields = ['email', 'message']
+      formData.email = this.email
+      formData.message = this.message
+      formData.formDataNameOrder = JSON.stringify(fields)
+      formData.formGoogleSheetName = process.env.SHEET_NAME
+      formData.formGoogleSendEmail = process.env.RECEIVE_EMAIL
+
+      const encoded = Object.keys(formData)
+        .map(
+          (k) => encodeURIComponent(k) + '=' + encodeURIComponent(formData[k])
+        )
+        .join('&')
+
+      const url = process.env.MESSAGE_URL
+
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', url)
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      xhr.addEventListener('readystatechange', () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const data = JSON.parse(xhr.response)
+            if (data.result === 'success') {
+              this.$notify({
+                group: 'contact',
+                title: '',
+                text: '메시지가 성공적으로 등록되었습니다!',
+                type: 'success',
+                closeOnClick: true
+              })
+            } else {
+              this.$notify({
+                group: 'contact',
+                title: '',
+                text: '메시지 등록을 실패하였습니다!',
+                type: 'error',
+                closeOnClick: true
+              })
+            }
+          } else {
+            this.$notify({
+              group: 'contact',
+              title: '',
+              text: '메시지 등록을 실패하였습니다!',
+              type: 'error',
+              closeOnClick: true
+            })
+          }
+        }
+      })
+      xhr.send(encoded)
     }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
+#honeypot {
+  display: none;
+}
 .contactForm {
   overflow: hidden;
 }
