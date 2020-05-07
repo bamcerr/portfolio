@@ -56,10 +56,6 @@
       value=""
     />
 
-    <p class="contactForm__text">
-      보내신 메시지는 데이터베이스에 저장됩니다.
-    </p>
-
     <div class="contactForm__submitWrap">
       <AppButtonPoint class="contactForm__submit" @click.prevent="sendMessage">
         메시지 보내기

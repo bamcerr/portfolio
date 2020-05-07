@@ -1,6 +1,7 @@
 import MobileDetect from 'mobile-detect'
 import checkIEVersion from '@/utils/checkIEVersion'
 import typingMotionData from '@/assets/data/typingMotion.js'
+import { workTags, workList } from '@/assets/data/works.js'
 
 export const state = () => ({
   pageSpacerName: null,
@@ -18,7 +19,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtClientInit({ dispatch, commit }, { redirect, route }) {
+  nuxtClientInit({ dispatch, commit }, { redirect, route }) {
     const ieVersion = checkIEVersion()
     if (+ieVersion > -1 && +ieVersion < 12) {
       redirect(200, '/notSupported')
@@ -44,7 +45,7 @@ export const actions = {
 
     dispatch('typing-motion/add', { name: 'intro', resource: typingMotionData })
 
-    await dispatch('work/fetchTags')
-    await dispatch('work/fetchList')
+    dispatch('work/fetchTags', workTags)
+    dispatch('work/fetchList', workList)
   }
 }

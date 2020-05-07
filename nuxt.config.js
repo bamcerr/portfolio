@@ -1,13 +1,7 @@
 require('dotenv').config()
 
 export default {
-  server: {
-    port: 3000,
-    host: 'localhost'
-  },
-  analyze: false,
-  mode: 'spa', // universal || spa
-  buildDir: '.nuxt',
+  mode: 'spa',
 
   // Headers of the page
   head: {
@@ -25,19 +19,11 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        src:
-          'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Customize the progress-bar color
   loading: false,
-
-  pageTransition: {},
 
   css: [
     '@/assets/style/font.css',
@@ -69,14 +55,10 @@ export default {
     'nuxt-client-init-module',
     // Doc: https://www.npmjs.com/package/nuxt-mq
     'nuxt-mq',
-    // '@nuxtjs/pwa',
-    // Doc : https://firebase.nuxtjs.org/
-    '@nuxtjs/firebase',
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
+
   // mq module configuration
   mq: {
     defaultBreakPoint: 'default',
@@ -86,38 +68,8 @@ export default {
     }
   },
 
-  // firebase module configuration
-  firebase: {
-    config: {
-      apiKey: process.env.API_KEY,
-      authDomain: process.env.AUTH_DOMAIN,
-      databaseURL: process.env.DATABASE_URL,
-      projectId: process.env.PROJECT_ID,
-      storageBucket: process.env.STORAGE_BUCKET,
-      messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID,
-      measurementId: process.env.MEASUREMENT_ID
-    },
-    onFirebaseHosting: true,
-    services: {
-      auth: {
-        initialize: {
-          onAuthStateChangedAction: 'auth/onAuthStateChanged'
-        }
-      },
-      firestore: true
-    }
-  },
-
-  // Axios module configuration
-  // See https://axios.nuxtjs.org/options
-  axios: {},
-
   // Build configuration
   build: {
-    splitChunks: {
-      layouts: true
-    },
     babel: {
       presets: [
         [

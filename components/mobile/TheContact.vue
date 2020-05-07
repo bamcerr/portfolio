@@ -7,6 +7,9 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+#honeypot {
+  display: none;
+}
 .contactForm {
   padding-bottom: 4.17rem;
   width: 24.17rem;

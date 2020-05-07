@@ -42,41 +42,21 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchTags({ commit }) {
-    const tags = await this.$fireStore
-      .collection('tags')
-      .get()
-      .then(function(querySnapshot) {
-        const tags = []
-        querySnapshot.forEach(function(doc) {
-          tags.push({ key: doc.id, ...doc.data() })
-        })
-
-        return tags
-      })
+  fetchTags({ commit }, workTags) {
+    const tags = Object.keys(workTags).map((tag) => {
+      return { key: tag, name: workTags[tag].name }
+    })
 
     commit('SET_TAGS', tags)
   },
 
-  async fetchList({ commit }) {
-    const list = await this.$fireStore
-      .collection('works')
-      .get()
-      .then((querySnapshot) => {
-        const items = []
-        querySnapshot.forEach((doc) => {
-          const data = doc.data()
-          data.key = doc.id
-          if (data.tags) {
-            data.keysOfTags = data.tags.map((tag) => tag.id)
-          }
-          delete data.tags
-          items.push(data)
-        })
+  fetchList({ commit }, workList) {
+    workList = workList.map((work) => {
+      work.keysOfTags = work.tags
+      delete work.tags
+      return work
+    })
 
-        return items
-      })
-
-    commit('SET_LIST', list)
+    commit('SET_LIST', workList)
   }
 }
