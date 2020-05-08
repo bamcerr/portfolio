@@ -1,20 +1,9 @@
 <template>
-  <div class="">
-    <keep-alive>
-      <TheHello />
-    </keep-alive>
+  <div>
     <AppPageSpacer />
   </div>
 </template>
 
 <script>
-import TheHello from '@/components/TheHello'
-
-export default {
-  layout: 'layoutDecktop',
-  name: 'Index',
-  components: {
-    TheHello
-  }
-}
+export default {}
 </script>

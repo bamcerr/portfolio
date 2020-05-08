@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       routes: [
-        { url: '/', name: 'hello' },
+        { url: '/hello', name: 'hello' },
         { url: '/portfolio', name: 'portfolio' },
         { url: '/contact', name: 'contact' }
       ]

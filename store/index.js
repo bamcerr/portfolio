@@ -41,6 +41,11 @@ export const actions = {
       setTimeout(() => {
         app.router.replace('/m/', () => {})
       })
+    } else {
+      app.router.replace('/hello', () => {})
+      setTimeout(() => {
+        app.router.replace('/hello', () => {})
+      })
     }
 
     dispatch('typing-motion/add', { name: 'intro', resource: typingMotionData })

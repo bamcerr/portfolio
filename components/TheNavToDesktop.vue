@@ -1,7 +1,7 @@
 <template>
   <div class="deviceMode">
     <div v-if="$route.fullPath === '/m/'" class="deviceMode__inner">
-      <nuxt-link class="deviceMode__link" to="/">
+      <nuxt-link class="deviceMode__link" to="/hello">
         <AppTextHoverUnderlineReplace underline-color="#ccc">
           데스크탑 보기
         </AppTextHoverUnderlineReplace>
