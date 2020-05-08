@@ -19,12 +19,12 @@ export const mutations = {
 }
 
 export const actions = {
-  nuxtClientInit({ dispatch, commit }, { redirect, route }) {
+  nuxtClientInit({ dispatch, commit }, { redirect, route, app }) {
     const ieVersion = checkIEVersion()
     if (+ieVersion > -1 && +ieVersion < 12) {
-      redirect(200, '/notSupported')
+      app.router.replace('/notSupported/', () => {})
       setTimeout(() => {
-        redirect(200, '/notSupported')
+        app.router.replace('/notSupported/', () => {})
       }, 0)
 
       return
@@ -37,9 +37,9 @@ export const actions = {
         userAgent: md.userAgent()
       })
 
-      redirect(200, '/m/')
+      app.router.replace('/m/', () => {})
       setTimeout(() => {
-        redirect(200, '/m/')
+        app.router.replace('/m/', () => {})
       })
     }
 

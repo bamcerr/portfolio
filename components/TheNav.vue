@@ -65,6 +65,10 @@ export default {
 }
 
 @media screen and (max-width: 1659.98px) {
+  .appNav__list {
+    width: 34px;
+  }
+
   .appNav__item {
     writing-mode: vertical-rl;
   }

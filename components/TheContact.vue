@@ -1,6 +1,6 @@
 <template lang="html">
   <form class="contactForm" autocomplete="off" @submit.prevent>
-    <div class="contactForm__item _child_first">
+    <div class="contactForm__item _child_first _type_email">
       <input
         id="email"
         ref="email"
@@ -25,11 +25,11 @@
       ></span>
     </div>
 
-    <div class="contactForm__item">
+    <div class="contactForm__item _type_textarea">
       <textarea
         id="message"
         :value="message"
-        class="contactForm__input _type_textarea"
+        class="contactForm__input"
         placeholder="Enter some text"
         @click="runWaveMotion"
         @input="
@@ -174,17 +174,6 @@ export default {
   &._child_first {
     margin-top: 63px;
   }
-}
-
-.contactForm__input {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 17px 16px;
-  border: 0;
-  color: var(--color-base-8, #111111);
-  background-color: var(--color-base-2, #c0c2c9);
-  font-size: var(--font-size-base-5, 38px);
 
   &._type_email {
     height: 62px;
@@ -194,6 +183,18 @@ export default {
     height: 180px;
     line-height: 1.2;
   }
+}
+
+.contactForm__input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 17px 16px;
+  border: 0;
+  color: var(--color-base-8, #111111);
+  background-color: var(--color-base-2, #c0c2c9);
+  font-size: var(--font-size-base-5, 38px);
 
   &::placeholder {
     font-size: 0;
