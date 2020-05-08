@@ -7,6 +7,9 @@ export default {
 </script>
 
 <style lang="postcss" scoped>
+#honeypot {
+  display: none;
+}
 .contactForm {
   padding-bottom: 4.17rem;
   width: 24.17rem;
@@ -21,26 +24,27 @@ export default {
   &._child_first {
     margin-top: 1.88rem;
   }
-}
-
-.contactForm__input {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 0.83rem 0.67rem;
-  border: 0;
-  color: var(--color-base-8, #111111);
-  background-color: var(--color-base-2, #c0c2c9);
-  font-size: var(--font-size-base-5, 1.58rem);
 
   &._type_email {
-    height: 2.58rem;
+    height: 2.6rem;
   }
 
   &._type_textarea {
     height: 7.5rem;
     line-height: 1.2;
   }
+}
+
+.contactForm__input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0.83rem 0.67rem;
+  border: 0;
+  color: var(--color-base-8, #111111);
+  background-color: var(--color-base-2, #c0c2c9);
+  font-size: var(--font-size-base-5, 1.58rem);
 
   &::placeholder {
     font-size: 0;

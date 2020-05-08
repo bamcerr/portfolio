@@ -1,6 +1,6 @@
 <template lang="html">
   <form class="contactForm" autocomplete="off" @submit.prevent>
-    <div class="contactForm__item _child_first">
+    <div class="contactForm__item _child_first _type_email">
       <input
         id="email"
         ref="email"
@@ -25,11 +25,11 @@
       ></span>
     </div>
 
-    <div class="contactForm__item">
+    <div class="contactForm__item _type_textarea">
       <textarea
         id="message"
         :value="message"
-        class="contactForm__input _type_textarea"
+        class="contactForm__input"
         placeholder="Enter some text"
         @click="runWaveMotion"
         @input="
@@ -48,9 +48,13 @@
       ></span>
     </div>
 
-    <p class="contactForm__text">
-      보내신 메시지는 데이터베이스에 저장됩니다.
-    </p>
+    <input
+      id="honeypot"
+      v-model="honeypot"
+      type="text"
+      name="honeypot"
+      value=""
+    />
 
     <div class="contactForm__submitWrap">
       <AppButtonPoint class="contactForm__submit" @click.prevent="sendMessage">
@@ -75,7 +79,8 @@ export default {
   data() {
     return {
       email: null,
-      message: null
+      message: null,
+      honeypot: null
     }
   },
 
@@ -94,38 +99,69 @@ export default {
     sendMessage() {
       this.$v.$touch()
       if (this.$v.$invalid) return
+      if (this.honeypot) return
 
-      this.$fireStore
-        .collection('contact')
-        .add({
-          date: this.$moment().format('YYYY-MM-DD hh:mm:ss'),
-          email: this.email,
-          message: this.message
-        })
-        .then(() => {
-          this.$notify({
-            group: 'contact',
-            title: '',
-            text: '메시지가 성공적으로 등록되었습니다!',
-            type: 'success',
-            closeOnClick: true
-          })
-        })
-        .catch(() => {
-          this.$notify({
-            group: 'contact',
-            title: '',
-            text: '메시지 등록을 실패하였습니다!',
-            type: 'error',
-            closeOnClick: true
-          })
-        })
+      const formData = {}
+      const fields = ['email', 'message']
+      formData.email = this.email
+      formData.message = this.message
+      formData.formDataNameOrder = JSON.stringify(fields)
+      formData.formGoogleSheetName = process.env.SHEET_NAME
+      formData.formGoogleSendEmail = process.env.RECEIVE_EMAIL
+
+      const encoded = Object.keys(formData)
+        .map(
+          (k) => encodeURIComponent(k) + '=' + encodeURIComponent(formData[k])
+        )
+        .join('&')
+
+      const url = process.env.MESSAGE_URL
+
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', url)
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      xhr.addEventListener('readystatechange', () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            const data = JSON.parse(xhr.response)
+            if (data.result === 'success') {
+              this.$notify({
+                group: 'contact',
+                title: '',
+                text: '메시지가 성공적으로 등록되었습니다!',
+                type: 'success',
+                closeOnClick: true
+              })
+            } else {
+              this.$notify({
+                group: 'contact',
+                title: '',
+                text: '메시지 등록을 실패하였습니다!',
+                type: 'error',
+                closeOnClick: true
+              })
+            }
+          } else {
+            this.$notify({
+              group: 'contact',
+              title: '',
+              text: '메시지 등록을 실패하였습니다!',
+              type: 'error',
+              closeOnClick: true
+            })
+          }
+        }
+      })
+      xhr.send(encoded)
     }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
+#honeypot {
+  display: none;
+}
 .contactForm {
   overflow: hidden;
 }
@@ -138,17 +174,6 @@ export default {
   &._child_first {
     margin-top: 63px;
   }
-}
-
-.contactForm__input {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 17px 16px;
-  border: 0;
-  color: var(--color-base-8, #111111);
-  background-color: var(--color-base-2, #c0c2c9);
-  font-size: var(--font-size-base-5, 38px);
 
   &._type_email {
     height: 62px;
@@ -158,6 +183,18 @@ export default {
     height: 180px;
     line-height: 1.2;
   }
+}
+
+.contactForm__input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 17px 16px;
+  border: 0;
+  color: var(--color-base-8, #111111);
+  background-color: var(--color-base-2, #c0c2c9);
+  font-size: var(--font-size-base-5, 38px);
 
   &::placeholder {
     font-size: 0;

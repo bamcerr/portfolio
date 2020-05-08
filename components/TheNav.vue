@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       routes: [
-        { url: '/', name: 'hello' },
+        { url: '/hello', name: 'hello' },
         { url: '/portfolio', name: 'portfolio' },
         { url: '/contact', name: 'contact' }
       ]
@@ -65,6 +65,10 @@ export default {
 }
 
 @media screen and (max-width: 1659.98px) {
+  .appNav__list {
+    width: 34px;
+  }
+
   .appNav__item {
     writing-mode: vertical-rl;
   }
